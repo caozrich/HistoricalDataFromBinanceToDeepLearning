@@ -123,7 +123,7 @@ class MainStrategy():
 
         data = data[['close','high','low','SMA']]
         
-        data.reset_index(level=0, inplace=True) #inplace significa cambios permanentes en el df, false seria solo que pandas mostraria como quedaria el cambio sin modificar el df original, devolveria una copia.
+        data.reset_index(level=0, inplace=True)
         data.drop('Date', axis=1, inplace=True)
 
 
@@ -131,7 +131,7 @@ class MainStrategy():
 
         
         scaler0 = StandardScaler()
-        scaler0.fit(x[:,0].reshape(x[:,0].shape[0],1)) #shape[0] = .shape siempre devuelve una dupla, con shape[0] accedo al primer elemento de esa dupla
+        scaler0.fit(x[:,0].reshape(x[:,0].shape[0],1)) 
         x[:,0] = (scaler0.transform(x[:,0].reshape(x[:,0].shape[0],1))).flatten()
   
         scaler1 = StandardScaler() 
