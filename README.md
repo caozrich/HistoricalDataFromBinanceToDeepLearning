@@ -5,10 +5,10 @@ This is an example of how to get historical data of a currency pair from Binance
 
 ## libraries required - Python 3.6 or later
 
--numpy.
--pandas.
--sklearn.
--ta.
--binance.
+- numpy.
+- pandas.
+- sklearn.
+- ta.
+- binance.
 
 
