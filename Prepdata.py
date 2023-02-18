@@ -1,3 +1,5 @@
+#by richard libreros
+
 from getDatafromBinance import getOHLCfromPair
 import pandas as pd
 import numpy as np
