@@ -1,4 +1,4 @@
-# HistoricalDataFromBinanceToDeepLearning
+# Historical Data from Binance to DeepLearning
 
 This is an example of how to get historical data of a currency pair from Binance API and apply a basic indicator to it and then preprocess the data to be used in deep learning projects (to use the binance API you must have an account).
 
