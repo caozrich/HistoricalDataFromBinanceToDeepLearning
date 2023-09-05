@@ -1,6 +1,6 @@
 # Code authored by Richard Libreros @CaoZRich
 # Necessary imports
-from getDatafromBinance import getOHLCfromPair
+from getdatafrombinance import getohlc_frompair
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
