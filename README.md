@@ -34,6 +34,7 @@ This will install the necessary libraries, including numpy, pandas, scikit-learn
 
 3. Configure Binance API Credentials
 To use the Binance API, you need to configure your credentials. Open the config.py file in the repository and replace "Your_API_Key_Here" and "Your_API_Secret_Here" with your Binance API key and API secret, respectively:
+**NOTE:** If you prefer not to use an API key, you can use the `get_binance_bars(symbol, interval, startTime, endTime)` function.
 
 python
 Copy code
