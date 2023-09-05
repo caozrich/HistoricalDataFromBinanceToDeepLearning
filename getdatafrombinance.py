@@ -5,7 +5,6 @@ import time
 import pandas as pd
 
 
-
 def get_ohlc_frompair(client, symbol, startDate=None, endDate=None):
     if startDate is None:
         # Set default start date 300 hours before the current time
