@@ -1,16 +1,17 @@
-#by richard libreros
-
+# Code authored by Richard Libreros @CaoZRich
+# Necessary imports
 from getDatafromBinance import getOHLCfromPair
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from keras.models import Sequential
-from keras.layers import Dense, LSTM ,Dropout, BatchNormalization
+from keras.layers import Dense, LSTM, Dropout, BatchNormalization
 from ta.trend import SMAIndicator
 from binance.client import Client
 
-API_KEY = "Your API key"
-API_SECRET = "API_SECRET"
+# Configure your API credentials
+API_KEY = "Your_API_Key_Here"  # Replace "Your_API_Key_Here" with your Binance API key
+API_SECRET = "Your_API_Secret_Here"  
 
 client = Client(API_KEY, API_SECRET, tld="com")
 
@@ -28,10 +29,10 @@ class MainStrategy():
         datareal      =   self.indicator(realdata)
         x            =   self.preprocesingData(datareal) 
 
-        self.train_algorthm(x,12,2) #slice of train data for do predictions and hours for forescast
+        self.train_algorthm(x,12,2) #(df, number of time steps to use for each input sample, number of future time steps to predict)
         
 
-    def indicator(self,df): #some libs like TA needs a df with datetime as index
+    def indicator(self,df): #some libraries like TA-Lib require a DataFrame with an index formatted as datetime.
         
         raw = df.copy()
         raw.reset_index(drop=True, inplace=True)
@@ -50,7 +51,7 @@ class MainStrategy():
 
 
         
-    def timeSeriestoSupervised(self,X,timesteps,n_target):
+    def timeSeriestoSupervised(self,X,timesteps,n_target): #Transform a time series dataset into a supervised learning format.
         
     
         x = np.zeros( [len(X)-(timesteps+n_target), timesteps, X.shape[1] ])
@@ -99,15 +100,16 @@ class MainStrategy():
   
         model = Sequential()
         
-        model.add(LSTM(128, input_shape=( x_train.shape[1], x_train.shape[2] ), return_sequences=True))
-        model.add(BatchNormalization())
-        model.add(Dropout(0.2))
-
+        model.add(LSTM(128, input_shape=(x_train.shape[1], x_train.shape[2]), return_sequences=True))       # LSTM layer 
+        
+        model.add(BatchNormalization()) # Batch normalization layer to improve training stability and speed
+        
+        model.add(Dropout(0.2)) # Dropout layer to prevent overfitting by randomly deactivating 20% of neurons during training
 
         model.add(LSTM(128, input_shape=( x_train.shape[1], x_train.shape[2] ), return_sequences=False))
 
         model.add(Dense(32,kernel_initializer="uniform",activation='relu'))        
-        model.add(Dense(1,kernel_initializer="uniform",activation='linear'))
+        model.add(Dense(1,kernel_initializer="uniform",activation='linear')) #output layer
         
         model.compile(loss='mse',optimizer='adam', metrics=['accuracy'])
 
@@ -121,19 +123,18 @@ class MainStrategy():
 
     def preprocesingData(self,data):
         
-        data = data.drop(data.index.values[:45])
+        data = data.drop(data.index.values[:45]) 
 
-        data = data[['close','high','low','SMA']]
+        data = data[['close','high','low','SMA']] # Select specific columns (features) for the neural network input, you can add more dimensions to the neural network input as needed.
+
         
         data.reset_index(level=0, inplace=True)
         data.drop('Date', axis=1, inplace=True)
 
 
-        x = data.values #df to numpy array
-
-        
-        scaler0 = StandardScaler()
-        scaler0.fit(x[:,0].reshape(x[:,0].shape[0],1)) 
+        x = data.values
+        scaler0 = StandardScaler() # You should create additional scalers for different feature groups if necessary.
+        scaler0.fit(x[:,0].reshape(x[:,0].shape[0],1)) #
         x[:,0] = (scaler0.transform(x[:,0].reshape(x[:,0].shape[0],1))).flatten()
   
         scaler1 = StandardScaler() 
