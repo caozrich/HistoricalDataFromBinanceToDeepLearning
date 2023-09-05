@@ -16,7 +16,6 @@ API_SECRET = "Your_API_Secret_Here"
 client = Client(API_KEY, API_SECRET, tld="com")
 
 
-
 class MainStrategy():
     
     def __init__(self) :
