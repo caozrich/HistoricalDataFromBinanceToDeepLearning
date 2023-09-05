@@ -6,7 +6,7 @@ import pandas as pd
 
 
 
-def getOHLCfromPair(client,symbol):
+def get_ohlc_frompair(client,symbol):
 
     timeEnd = datetime.now(tz = pytz.timezone('Etc/GMT-5'))
     delta = timedelta(hours = 1)
