@@ -25,11 +25,11 @@ class MainStrategy():
 
     def getDataFromBinance(self):
     
-        realdata      =   getOHLCfromPair(client,"BTCUSDT")
+        realdata      =   get_ohlc_fromPair(client,"BTCUSDT")
         datareal      =   self.indicator(realdata)
         x            =   self.preprocesingData(datareal) 
 
-        self.train_algorthm(x,12,2) #(df, number of time steps to use for each input sample, number of future time steps to predict)
+        self.train_algorthm(x,24,6) #(df, number of time steps to use for each input sample, number of future time steps to predict)
         
 
     def indicator(self,df): #some libraries like TA-Lib require a DataFrame with an index formatted as datetime.
